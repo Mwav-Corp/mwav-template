@@ -12,6 +12,7 @@ import net.mwav.template.billing.controller.dto.TossRequest;
 import net.mwav.template.billing.service.BillingService;
 import net.mwav.template.customer.controller.dto.SignUpResponse;
 import net.mwav.template.global.model.StandardResponseBody;
+import net.mwav.template.security.service.SecurityResolver;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,12 +22,11 @@ public class BillingController {
 
 	@PostMapping(value = "/api/billing/toss", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> billInToss(@RequestBody TossRequest tossRequest) throws Exception {
+		SecurityResolver.authorize(tossRequest.getCustomerId());
 		billingService.billInToss(tossRequest);
-		StandardResponseBody<SignUpResponse> standardResponseBody = StandardResponseBody
-				.success();
+		StandardResponseBody<SignUpResponse> standardResponseBody = StandardResponseBody.success();
 
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(standardResponseBody);
+		return ResponseEntity.status(HttpStatus.CREATED).body(standardResponseBody);
 	}
 
 }

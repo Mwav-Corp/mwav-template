@@ -24,38 +24,38 @@ public class BillingService {
 
 	public void billInToss(TossRequest tossRequest) throws Exception {
 		TossBillingKeyRequest tossBillingKeyRequest = TossBillingKeyRequest.builder()
-				.customerKey(tossRequest.getSubscriptionNo())
-				.cardNumber(tossRequest.getCardNumber())
-				.cardExpirationYear(tossRequest.getCardExpirationYear())
-				.cardExpirationMonth(tossRequest.getCardExpirationMonth())
-				.customerIdentityNumber(tossRequest.getCustomerIdentityNumber())
-				.cardPassword(tossRequest.getCardPassword())
-				.build();
+			.customerKey(tossRequest.getSubscriptionNo())
+			.cardNumber(tossRequest.getCardNumber())
+			.cardExpirationYear(tossRequest.getCardExpirationYear())
+			.cardExpirationMonth(tossRequest.getCardExpirationMonth())
+			.customerIdentityNumber(tossRequest.getCustomerIdentityNumber())
+			.cardPassword(tossRequest.getCardPassword())
+			.build();
 
 		TossBillingKeyResponse billingKey = tossService.getBillingKey(tossBillingKeyRequest);
 
 		TossBillingRequest tossBillingRequest = TossBillingRequest.builder()
-				.customerKey(tossRequest.getSubscriptionNo())
-				.billingKey(billingKey.getBillingKey())
-				.orderId(tossRequest.getOrderNo())
-				.orderName(tossRequest.getOrderName())
-				.amount(tossRequest.getAmount())
-				.build();
+			.customerKey(tossRequest.getSubscriptionNo())
+			.billingKey(billingKey.getBillingKey())
+			.orderId(tossRequest.getOrderNo())
+			.orderName(tossRequest.getOrderName())
+			.amount(tossRequest.getAmount())
+			.build();
 
 		tossService.pay(tossBillingRequest);
 
 		Billing billing = Billing.builder()
-				.providerType(BillingProviderType.TOSS)
-				.subscriptionNo(tossRequest.getSubscriptionNo())
-				.billingKey(billingKey.getBillingKey())
-				.build();
+			.providerType(BillingProviderType.TOSS)
+			.subscriptionNo(tossRequest.getSubscriptionNo())
+			.billingKey(billingKey.getBillingKey())
+			.build();
 
 		createBilling(billing);
 	}
 
 	@Transactional
-	public void createBilling(Billing billing) {
-		billingRepository.save(billing);
+	public Billing createBilling(Billing billing) {
+		return billingRepository.save(billing);
 	}
 
 }

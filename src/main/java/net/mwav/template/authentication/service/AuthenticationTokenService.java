@@ -43,23 +43,28 @@ public class AuthenticationTokenService {
 
 		Customer customer = Customer.builder().id(Long.valueOf(subject)).build();
 		CustomerToken customerToken = CustomerToken.builder()
-				.customer(customer)
-				.accessToken(accessToken)
-				.refreshToken(refreshtoken)
-				.build();
+			.customer(customer)
+			.accessToken(accessToken)
+			.refreshToken(refreshtoken)
+			.build();
 
-		customerToken = customerTokenRepository.save(customerToken);
+		customerToken = createToken(customerToken);
 
 		// return token
 		return customerToken;
 	}
 
 	@Transactional(rollbackFor = Exception.class)
+	public CustomerToken createToken(CustomerToken customerToken) {
+		return customerTokenRepository.save(customerToken);
+	}
+
+	@Transactional(rollbackFor = Exception.class)
 	public CustomerToken reissue(String refreshToken) {
 		String subject = jwtTokenProvider.getSubject(refreshToken);
 		CustomerToken customerToken = customerTokenRepository
-				.findByCustomerIdAndRefreshToken(Long.valueOf(subject), refreshToken)
-				.orElseThrow(EntityNotFoundException::new);
+			.findByCustomerIdAndRefreshToken(Long.valueOf(subject), refreshToken)
+			.orElseThrow(EntityNotFoundException::new);
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new Authority("ROLE_USER"));
