@@ -1,5 +1,8 @@
 package net.mwav.template.product.entity;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -28,8 +31,10 @@ import net.mwav.template.product.entity.pk.CategoryProductId;
 @Getter
 @ToString(exclude = { "category", "product" })
 @EqualsAndHashCode
-public class CategoryProduct {
+public class CategoryProduct implements Serializable {
 
+	private static final long serialVersionUID = -5724959685976518007L;
+	
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
