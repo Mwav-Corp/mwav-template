@@ -1,4 +1,4 @@
-package net.mwav.sala.customer.repository;
+package net.mwav.template.customer.repository;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,8 +8,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import net.mwav.template.customer.entity.Customer;
 import net.mwav.template.customer.entity.CustomerVerification;
-import net.mwav.template.customer.repository.CustomerRepository;
-import net.mwav.template.customer.repository.CustomerVerificationRepository;
 
 @DataJpaTest
 public class CustomerVerificationRepositoryTest {
@@ -23,11 +21,11 @@ public class CustomerVerificationRepositoryTest {
 	@Test
 	void sendTest() {
 		Customer customer = Customer.builder()
-				.name("dummyuser")
-				.fullname("dummy user")
-				.email("admin@mwav.net")
-				.password("password")
-				.build();
+			.name("dummyuser")
+			.fullname("dummy user")
+			.email("admin@mwav.net")
+			.password("password")
+			.build();
 
 		customer = customerRepository.save(customer);
 

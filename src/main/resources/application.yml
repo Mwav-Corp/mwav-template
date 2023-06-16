@@ -10,6 +10,7 @@ spring:
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
+      data: classpath:data.sql
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -25,21 +26,19 @@ spring:
   h2:
     console:
       enabled: true
-      
 server:
   port: 9712
-  
 jwt:
   secret: ENC(kxODmXKU4Mf6wSrJ/UrLOGiHA2NQ4QO5yCaTcYaMzNoT2aMyAlJg0YuA+nVq5H4PNPabmmtxDob6zHv5Ki95MikfMqwkR/VlPrW9RSPY7ese3quleQXb8JZLhyEGn9/7AlEAx62uVGHhGwnSnQIZeObI00vVxft0XgKWhdu63BzIBRc1/IqM2Ghmal1WOC2g)
-  access-token-validity: 86400000 # 1 day
+  access-token-validity: 86400000
   access-token-name: Authorization
-  refresh-token-validity: 1209600000 # 14 days
+  refresh-token-validity: 1209600000
   refresh-token-name: SFDD
   refresh-token-url: /refresh
   domain: localhost
-  
 api:
   toss:
     app-id: ENC(6xbbmmiUgOM2wY7Kn3D9+uuUN1gAP1A54fRP6dJhPQM6Oi1z7VzKndupemMw+Kwl)
     secret: ENC(KQUGukz4sgJv+24s7Z61MlHF7Fk/c+0UoV3taL+K5CNauU89tohFNpUHpnZrxJ2h)
-    
+logging:
+  config: classpath:logback-spring.xml
