@@ -17,10 +17,16 @@ public class BasicDetailService implements UserDetailsService {
 
 	@Override
 	public CustomerDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-		Customer customer = customerRepository.findByName(name).orElseThrow(() -> {
+		// This method overrides UserDetailsService.loadUserByUsername, so it must throw UsernameNotFoundException.
+		// When a customer is not registered and if you use Optional.orElseThrow(Supplier<? extends RuntimeException>) to throw exception,
+		// it throws UsernameNotFoundException related to RuntimeException.
+		// RuntimeException is not throwable in this method(because it only throws UsernameNotFoundException) and it is immutable, maven compile fails.
+		Customer customer = customerRepository.findByName(name).orElse(null);
+
+		if (customer == null) {
 			throw new UsernameNotFoundException("아이디 혹은 비밀번호를 확인해주세요.");
-		});
-		
+		}
+
 		return CustomerDetails.from(customer);
 	}
 
