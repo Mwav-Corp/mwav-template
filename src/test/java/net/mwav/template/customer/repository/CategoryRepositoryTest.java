@@ -1,5 +1,7 @@
 package net.mwav.template.customer.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +22,12 @@ class CategoryRepositoryTest {
 	@Test
 	void jpqlTest() {
 		Category category = categoryRepository.findById(Long.valueOf(1)).orElseThrow(EntityNotFoundException::new);
-		log.debug(category.getProducts().toString());
+		log.debug(category.getCategoryProducts().toString());
 	}
 
+	@Test
+	void jpaTest() {
+		List<Category> category = categoryRepository.findAll();
+		log.debug(category.get(0).getCategoryProducts().toString());
+	}
 }

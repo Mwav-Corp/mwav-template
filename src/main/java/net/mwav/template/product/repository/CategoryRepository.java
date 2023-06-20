@@ -11,9 +11,9 @@ import net.mwav.template.product.entity.Category;
 
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-	List<Category> findAllByIsActive(boolean isActive);
+	public List<Category> findAll();
 
-	@Query("SELECT DISTINCT c FROM Category c JOIN FETCH c.products WHERE c.id = :id")
-	Optional<Category> findById(@Param("id") Long id);
+	@Query("SELECT DISTINCT c FROM Category c JOIN FETCH c.categoryProducts WHERE c.id = :id")
+	public Optional<Category> findById(@Param("id") Long id);
 
 }

@@ -25,15 +25,15 @@ public class CategoryResponse implements Serializable {
 	private List<ProductResponse> products;
 
 	public static CategoryResponse from(Category category) {
-		List<ProductResponse> productResponses = category.getProducts().stream().map(p -> {
+		List<ProductResponse> productResponses = category.getCategoryProducts().stream().map(p -> {
 			return ProductResponse.from(p.getProduct());
 		}).collect(Collectors.toList());
 
 		return CategoryResponse.builder()
-				.id(category.getId())
-				.name(category.getName())
-				.description(category.getDescription())
-				.products(productResponses)
-				.build();
+			.id(category.getId())
+			.name(category.getName())
+			.description(category.getDescription())
+			.products(productResponses)
+			.build();
 	}
 }

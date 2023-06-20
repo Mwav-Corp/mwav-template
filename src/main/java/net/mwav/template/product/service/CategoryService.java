@@ -12,10 +12,10 @@ import net.mwav.template.product.repository.CategoryRepository;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
+	private final CategoryRepository categoryRepository;
 
-    public List<Category> getCategories() {
-        return categoryRepository.findAllByIsActive(true);
-    }
+	public List<Category> getCategories() {
+		return categoryRepository.findAll();
+	}
 
 }

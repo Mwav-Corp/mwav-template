@@ -48,6 +48,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<CategoryProduct> products;
+    private List<CategoryProduct> categoryProducts;
     
 }
